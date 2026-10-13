@@ -1,0 +1,19 @@
+services:
+  server:
+    image: Username/de1:MaSV      # doi thanh Username/de1:MaSV cua ban
+    build: .
+    command: ["server"]
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./logs:/app/logs          # chat.log nam o ./logs/chat.log
+
+  client:
+    image: Username/de1:MaSV
+    command: ["client"]
+    environment:
+      - SERVER_HOST=server
+    depends_on:
+      - server
+    stdin_open: true
+    tty: true
